@@ -1,0 +1,193 @@
+/* estilos predeterminados de PrimeReact */
+html {
+  font-size: 14px;
+}
+
+body { 
+  font-family: var(--font-family);
+  font-weight: normal;
+  background: var(--surface-ground);
+  margin: 0%;
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* css de pedidos ------------------------------------------------------------------------------------------ */
+
+.mi-boton {
+  display: 'flex';
+  justify-content: 'flex-end'
+}
+
+/* solo es para separar el footer */
+.pedidos-container {
+  margin-bottom: 10rem;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+/* css de pedidos main */
+
+.containerPedidos {
+  width: 80%;
+  margin: auto;
+  /* margin-left: 10rem; 
+  margin-right: 10rem;  */
+}
+
+.cardPedidos {
+  align-items: center;
+  background: var(--surface-card);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+
+/* css del login */
+
+.login {
+  margin-top: 15rem;
+  margin-bottom: 15rem;
+}
+
+/* css de pantalla de edicion -------------------------------------------------------------------------------------------*/
+
+.card {
+  align-items: center;
+  background: var(--surface-card);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  height: 50vh; 
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+/* css de proveedores, clientes y formulario ----------------------------------------------------------------------------------------- */
+
+
+.proveedores-container {
+  margin-bottom: 38rem;
+}
+.clientes-container {
+  margin-bottom: 9rem;
+}
+
+.form{
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------ */
+
+
+/* css de las pantallas de productos ----------------------------------------------------------------------------------------- */
+
+.contenedor {
+  display: grid;
+  width: 80%;
+  margin: auto;
+  padding: 30px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, auto);
+  grid-template-areas: 
+      "fotos panel"
+      "fotos panel"
+      "fotos descripcion"
+      "fotos descripcion"
+      ;
+}
+
+.fotos {
+  grid-area: fotos;
+  display: inline;
+}
+
+.descripcion {
+  grid-area: descripcion;
+}
+
+.panel {
+  grid-area: panel;
+  font-size: 30px;
+}
+
+.dropdown_cantidad {
+  margin-top: 50px;
+}
+
+.dropdown_color {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.titulo {
+  text-align: center;
+  font-size: 30px;
+  color: white;
+}
+
+.carrusel_mas_productos {
+  margin-top: 50px;
+}
+
+.mas_productos {
+  margin-top: 100px;
+}
+
+@media screen and (max-width: 768px) {
+  .contenedor {
+      grid-template-areas: 
+      "fotos fotos"
+      "fotos fotos"
+      "panel panel"
+      "descripcion descripcion"
+      ;
+  }
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------- */
+
+/* css de reportes */
+
+/* .espacio{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  width: 1200px;
+  margin-left: 350px;
+  margin-bottom:300px ;
+} */
+
+.reportesVentas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  width: 90vw;
+  margin: auto;
+  margin-top: 5rem;
+}
+
+
+
+/* --------------------------------------------------------------------------------------------------------------------------------------- */
+
+/* css del catalogo y el carrusel de productos en cada pantalla de producto */
+
+.fotito {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.producto_titulo {
+  color: white;
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------- */
