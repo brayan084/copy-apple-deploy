@@ -13,7 +13,6 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
 import { FileUpload } from 'primereact/fileupload';
-// import { Dropdown } from 'primereact/dropdown';
 
 
 
@@ -37,7 +36,7 @@ export default function ListadoDeProductos() {
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [product, setProduct] = useState(emptyProduct);
-    const [file, setFile] = useState(null)
+    const [imagen, setImagen] = useState(null);
     const [submitted, setSubmitted] = useState(false);
     const toast = useRef(null);
     const dt = useRef(null);
@@ -69,16 +68,7 @@ export default function ListadoDeProductos() {
         e.preventDefault();
 
         try {
-            const formdata = new FormData();
-            if (file) {
-                formdata.append('imagen', file); // Agrega la imagen al FormData solo si hay un archivo seleccionado
-            }
-    
-            // Agrega los datos del producto al FormData
-            Object.keys(product).forEach((key) => {
-                formdata.append(key, product[key]);
-            });
-    
+
             if (product.id) {
                 await axios.put(`https://deploybackendtp-44411f5799d1.herokuapp.com/productos/${product.id}`, product);
                 const updatedProducts = [...products];
@@ -88,6 +78,12 @@ export default function ListadoDeProductos() {
                 toast.current.show({ severity: 'success', summary: 'Exitoso', detail: 'Producto editado', life: 3000 });
             } else {
                 const response = await axios.post('https://deploybackendtp-44411f5799d1.herokuapp.com/productos/crearProducto', product);
+                await axios.post('http://localhost:3001/productos/uploadImagen', imagen, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log('Imagen enviada correctamente');
                 const newProduct = response.data;
                 setProducts([...products, newProduct]);
                 toast.current.show({ severity: 'success', summary: 'Exitoso', detail: 'Producto creado', life: 3000 });
@@ -189,18 +185,23 @@ export default function ListadoDeProductos() {
         setProduct(_product);
     };
 
+    const handleSelect = async (event) => {
 
-    const imageBodyTemplate = (rowData) => {
-        const base64Image = new Uint8Array(rowData.imagen).reduce((data, byte) => data + String.fromCharCode(byte), '');
-        const imageSrc = `data:image/png;base64,${btoa(base64Image)}`;
+        const file = event.files[0];
+        const formData = new FormData();
+        formData.append('imagen', file)
+        setImagen(formData);
 
-        return <img src={imageSrc} alt={rowData.nombre} className="shadow-2 border-round" style={{ width: '64px' }} />;
+        setProduct({ ...product, imagen: file.name });
+        // console.log(file);
+        // console.log(formData);
     };
 
+    const imageBodyTemplate = (rowData) => {
+        const urlImagen = rowData.imagen;
+        const imageUrl = `https://deploybackendtp-44411f5799d1.herokuapp.com/${urlImagen}`;
 
-    const selectedHandler = (event) => {
-        const selectedFile = event.files[0]; // Obtiene el archivo seleccionado
-        setFile(selectedFile); // Guarda el archivo seleccionado en el estado 'file'
+        return <img src={imageUrl} className="shadow-2 border-round" style={{ width: '64px' }} />;
     };
 
 
@@ -330,7 +331,7 @@ export default function ListadoDeProductos() {
                         <label htmlFor="imagen" className="font-bold">
                             Imagen
                         </label>
-                        <FileUpload id="imagen" mode="basic" onSelect={selectedHandler} name="imagen" url="http://localhost:3001/productos/imagen/post" accept="image/*" maxFileSize={1000000} />
+                        <FileUpload id="imagen" mode="basic" name="imagen" onSelect={handleSelect} chooseLabel='Elegir' uploadLabel='Subir' cancelLabel='Cancelar' customUpload />
 
                     </div>
 
