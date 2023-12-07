@@ -78,7 +78,7 @@ export default function ListadoDeProductos() {
                 toast.current.show({ severity: 'success', summary: 'Exitoso', detail: 'Producto editado', life: 3000 });
             } else {
                 const response = await axios.post('https://deploybackendtp-44411f5799d1.herokuapp.com/productos/crearProducto', product);
-                await axios.post('http://localhost:3001/productos/uploadImagen', imagen, {
+                await axios.post('https://deploybackendtp-44411f5799d1.herokuapp.com/uploadImagen', imagen, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -199,7 +199,7 @@ export default function ListadoDeProductos() {
 
     const imageBodyTemplate = (rowData) => {
         const urlImagen = rowData.imagen;
-        const imageUrl = `https://deploybackendtp-44411f5799d1.herokuapp.com/${urlImagen}`;
+        const imageUrl = `https://deploybackendtp-44411f5799d1.herokuapp.com/uploads/${urlImagen}`;
 
         return <img src={imageUrl} className="shadow-2 border-round" style={{ width: '64px' }} />;
     };
