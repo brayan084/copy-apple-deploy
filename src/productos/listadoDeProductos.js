@@ -78,7 +78,7 @@ export default function ListadoDeProductos() {
                 toast.current.show({ severity: 'success', summary: 'Exitoso', detail: 'Producto editado', life: 3000 });
             } else {
                 const response = await axios.post('https://deploybackendtp-44411f5799d1.herokuapp.com/productos/crearProducto', product);
-                await axios.post('https://deploybackendtp-44411f5799d1.herokuapp.com/uploadImagen', imagen, {
+                await axios.post('https://deploybackendtp-44411f5799d1.herokuapp.com/productos/uploadImagen', imagen, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
