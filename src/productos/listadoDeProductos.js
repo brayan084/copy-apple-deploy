@@ -84,6 +84,7 @@ export default function ListadoDeProductos() {
                     }
                 });
                 console.log('Imagen enviada correctamente');
+                setImagen(null);
                 const newProduct = response.data;
                 setProducts([...products, newProduct]);
                 toast.current.show({ severity: 'success', summary: 'Exitoso', detail: 'Producto creado', life: 3000 });
@@ -301,8 +302,10 @@ export default function ListadoDeProductos() {
             </div>
 
             <Dialog visible={productDialog} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Product Details" modal className="p-fluid" onHide={hideDialog}>
-                {product.imagen && <img src={`${product.imagen}`} alt={product.imagen} className="product-image block m-auto pb-3" style={{ width: '100px' }} />}
-
+                {/* {product.imagen && <img src={`${product.imagen}`} alt={product.imagen} className="product-image block m-auto pb-3" style={{ width: '100px' }} />} */}
+                {imagen && (
+                    <img src={URL.createObjectURL(imagen.get('imagen'))} alt="Imagen" width={200} className="product-image block m-auto pb-3" />
+                )}
                 <form onSubmit={handleSubmit}>
 
                     <div className="field">
@@ -327,12 +330,11 @@ export default function ListadoDeProductos() {
                         <InputNumber id="proveedorID" value={product.proveedorID} onValueChange={(e) => onInputNumberChange(e, "proveedorID")} required rows={3} cols={20} />
                     </div>
 
-                    <div className="field">
-                        <label htmlFor="imagen" className="font-bold">
+                    <div className="field flex-column align-items-center">
+                        {/* <label htmlFor="imagen" className="font-bold">
                             Imagen
-                        </label>
-                        <FileUpload id="imagen" mode="basic" name="imagen" onSelect={handleSelect} chooseLabel='Elegir' uploadLabel='Subir' cancelLabel='Cancelar' customUpload />
-
+                        </label> */}
+                        <FileUpload id="imagen" name="imagen" url={''} onSelect={handleSelect} cancelLabel='Cancelar' chooseLabel='Elegir' auto={true} />
                     </div>
 
                     <div className="field mt-2">
