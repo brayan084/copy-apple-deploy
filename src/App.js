@@ -11,7 +11,7 @@ import Catalogo from './home/catalogo';
 import ListadoDeProductos from './productos/listadoDeProductos';
 import Footer from './partes en comun/footer';
 import Pedidos from './pedidos/pedidos';
-import Reportes2 from './reportes/reportesCompras/reportes_compras';
+// import Reportes2 from './reportes/reportesCompras/reportes_compras';
 // import Reportes1 from './reportes/reportesVentas/reportes_ventas-Ventas-por-Fecha';
 import ReportesVentas1 from './reportes/reportesVentas';
 // import Clientes from './clientes y proveedores/clientes';
@@ -27,7 +27,8 @@ import Pantalla_producto_MacBook_Air from './pantallas de productos/pantalla del
 import Proveedores from './clientes y proveedores/proveedores';
 import Clientes from './clientes y proveedores/ejemploClientes';
 import PedidosMain from './pedidos/pedidosMain';
-import ReportesVentas from './reportes/reportesVentas';
+// import ReportesVentas from './reportes/reportesVentas';
+import ReportesCompras1 from './reportes/reportesCompras';
 
 /* importamos cada componente */
 
@@ -70,7 +71,7 @@ function App() {
           </ProtectedRoute>}>
           </Route>
           <Route path='/reportes/reportes_compras' element={<ProtectedRoute>
-            <Reportes2 />
+            <ReportesCompras1 />
           </ProtectedRoute>}>
           </Route>
           <Route path='/iphone' element={<Pantalla_producto_iphone />}></Route>
