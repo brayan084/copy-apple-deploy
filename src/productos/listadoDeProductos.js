@@ -32,6 +32,7 @@ export default function ListadoDeProductos() {
         unidadDeMedida: null,
     };
 
+
     const [products, setProducts] = useState(null);
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
@@ -41,6 +42,7 @@ export default function ListadoDeProductos() {
     const toast = useRef(null);
     const dt = useRef(null);
 
+    console.log(product);
     /* const [selectedUnidad, setSelectedUnidad] = useState(null);
     const opciones = [
         { name: 'Unidad', code: 'I' },
@@ -71,6 +73,11 @@ export default function ListadoDeProductos() {
 
             if (product.id) {
                 await axios.put(`https://deploybackendtp-44411f5799d1.herokuapp.com/productos/${product.id}`, product);
+                await axios.put('https://deploybackendtp-44411f5799d1.herokuapp.com/productos/uploadImagen', imagen, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
                 const updatedProducts = [...products];
                 const productIndex = updatedProducts.findIndex((p) => p.id === product.id);
                 updatedProducts[productIndex] = { ...product };
