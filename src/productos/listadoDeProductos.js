@@ -38,11 +38,14 @@ export default function ListadoDeProductos() {
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [product, setProduct] = useState(emptyProduct);
     const [imagen, setImagen] = useState(null);
+    const [imagenUpdate, setImagenUpdate] = useState(null);
+    console.log(imagen);
+    console.log(imagenUpdate);
     const [submitted, setSubmitted] = useState(false);
     const toast = useRef(null);
     const dt = useRef(null);
 
-    console.log(product);
+    // console.log(product);
     /* const [selectedUnidad, setSelectedUnidad] = useState(null);
     const opciones = [
         { name: 'Unidad', code: 'I' },
@@ -73,7 +76,7 @@ export default function ListadoDeProductos() {
 
             if (product.id) {
                 await axios.put(`https://deploybackendtp-44411f5799d1.herokuapp.com/productos/${product.id}`, product);
-                await axios.put('https://deploybackendtp-44411f5799d1.herokuapp.com/productos/uploadImagen', imagen, {
+                await axios.post('https://deploybackendtp-44411f5799d1.herokuapp.com/productos/uploadImagen', imagen, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -82,6 +85,7 @@ export default function ListadoDeProductos() {
                 const productIndex = updatedProducts.findIndex((p) => p.id === product.id);
                 updatedProducts[productIndex] = { ...product };
                 setProducts(updatedProducts);
+                setImagen(null);
                 toast.current.show({ severity: 'success', summary: 'Exitoso', detail: 'Producto editado', life: 3000 });
             } else {
                 const response = await axios.post('https://deploybackendtp-44411f5799d1.herokuapp.com/productos/crearProducto', product);
@@ -127,6 +131,8 @@ export default function ListadoDeProductos() {
     };
 
     const hideDialog = () => {
+        setImagenUpdate(null);
+        setImagen(null);
         setSubmitted(false);
         setProductDialog(false);
     };
@@ -136,6 +142,8 @@ export default function ListadoDeProductos() {
     };
 
     const editProduct = (product) => {
+        // console.log(product.imagen);
+        imageUniqued(product.imagen);
         setProduct({ ...product });
         setProductDialog(true);
     };
@@ -211,6 +219,13 @@ export default function ListadoDeProductos() {
 
         return <img src={imageUrl} className="shadow-2 border-round" style={{ width: '64px' }} />;
     };
+
+
+    
+    const imageUniqued = async (imagen) => {
+        const rutaImagen = `https://deploybackendtp-44411f5799d1.herokuapp.com/uploads/${imagen}`;
+        setImagenUpdate(rutaImagen);
+    }
 
 
     const moneyTemplate = (amount) => {
@@ -313,7 +328,10 @@ export default function ListadoDeProductos() {
                 {imagen && (
                     <img src={URL.createObjectURL(imagen.get('imagen'))} alt="Imagen" width={200} className="product-image block m-auto pb-3" />
                 )}
-                <form onSubmit={handleSubmit}>
+                {imagen === null && imagenUpdate && (
+                    <img src={imagenUpdate} alt="imagen" width={200} className="product-image block m-auto pb-3" />
+                )}
+                 <form onSubmit={handleSubmit}>
 
                     <div className="field">
                         <label htmlFor="nombre" className="font-bold">
@@ -435,23 +453,6 @@ export default function ListadoDeProductos() {
                             </label>
                             <InputNumber id="cantidad" value={product.cantidad} onValueChange={(e) => onInputNumberChange(e, 'cantidad')} />
                         </div>
-
-                        {/* <div className="field col">
-                            <label className="font-bold">Unidad de Medida</label>
-                            <Dropdown
-                                value={selectedUnidad}
-                                options={opciones}
-                                onChange={(e) => {
-                                    setSelectedUnidad(e.value);
-                                    setProduct((prevProduct) => ({
-                                        ...prevProduct,
-                                        unidadDeMedida: e.value,
-                                    }));
-                                }}
-                                placeholder="Seleccionar Unidad de Medida"
-                                optionLabel="name"
-                            />
-                        </div> */}
 
                     </div>
 
