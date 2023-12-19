@@ -73,7 +73,7 @@ export default function Ventas2() {
     scales: {
       y: {
         min: 0,
-        max: 1000000,
+        max: 5000000,
         ticks: { color: 'rgba(255, 255, 255)' }
       },
       x: {
